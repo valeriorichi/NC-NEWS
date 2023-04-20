@@ -16,22 +16,11 @@ const ArticlesTray = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   let queryToUse = ``;
-  if (topic && !sortBy && !sortOrder) {
+  if (topic) {
     queryToUse = `?topic=${topic}`;
-  } else if (topic && sortBy && !sortOrder) {
-    queryToUse = `?topic=${topic}&sort_by=${sortBy}`;
-  } else if (topic && sortBy && sortOrder) {
-    queryToUse = `?topic=${topic}&sort_by=${sortBy}&order=${sortOrder}`;
-  } else if (!topic && sortBy && !sortOrder) {
-    queryToUse = `?sort_by=${sortBy}`;
+  } else {
+    queryToUse = ``;
   }
-  if (!topic && !sortBy && sortOrder) {
-    queryToUse = `?order=${sortOrder}`;
-  }
-  if (!topic && sortBy && sortOrder) {
-    queryToUse = `?sort_by=${sortBy}&order=${sortOrder}`;
-  }
-  if (sortBy === "comment_count") queryToUse = ``;
 
   useEffect(() => {
     setIsLoading(true);
@@ -78,17 +67,7 @@ const ArticlesTray = () => {
       ) : (
         <h2>All articles:</h2>
       )}
-      <div>
-        <button onClick={() => handleSortBy("created_at")}>
-          Sort by date {sortBy === "created_at" && `(${sortOrder})`}
-        </button>
-        <button onClick={() => handleSortBy("comment_count")}>
-          Sort by comment count {sortBy === "comment_count" && `(${sortOrder})`}
-        </button>
-        <button onClick={() => handleSortBy("votes")}>
-          Sort by votes {sortBy === "votes" && `(${sortOrder})`}
-        </button>
-      </div>
+
       {articles.map((article) => (
         <ArticleCard key={article.article_id} article={article} />
       ))}

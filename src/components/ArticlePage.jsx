@@ -1,4 +1,4 @@
-import { getArticle, patchLikes } from "../api";
+import { getArticle } from "../api";
 import CommentsExtension from "./CommentsExtension";
 import CommentForm from "./CommentForm";
 import { useParams } from "react-router-dom";
@@ -12,7 +12,6 @@ const ArticlePage = ({ loggedInUser }) => {
   const [newComment, setNewComment] = useState(null);
   const [newCommentIsSubmitting, setNewCommentIsSubmitting] = useState(false);
   const [updateCommentCount, setUpdateCommentCount] = useState(null);
-  const [likeState, setLikeState] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -31,23 +30,6 @@ const ArticlePage = ({ loggedInUser }) => {
     setShowComments((prevState) => !prevState);
   };
 
-  const handleLike = (value) => {
-    patchLikes(article_id, value)
-      .then((response) => {
-        setArticle(response);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    if (likeState === 0) {
-      setLikeState(value);
-    } else if (value !== 0) {
-      setLikeState(0);
-    } else {
-      setLikeState(value);
-    }
-  };
-
   if (isLoading) return <h3>Article is loading...</h3>;
 
   return (
@@ -61,12 +43,6 @@ const ArticlePage = ({ loggedInUser }) => {
         <p>{article.body}</p>
       </div>
       <div>
-        <button onClick={() => handleLike(1)} disabled={likeState === 1}>
-          👍
-        </button>
-        <button onClick={() => handleLike(-1)} disabled={likeState === -1}>
-          👎
-        </button>
         <span>💙{article.votes}</span>
       </div>
       <div>
