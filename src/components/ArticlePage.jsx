@@ -1,32 +1,54 @@
-import { getArticle } from "../api";
+import { getArticle, patchLikes } from "../api";
 import CommentsExtension from "./CommentsExtension";
 import CommentForm from "./CommentForm";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-const ArticlePage = () => {
+const ArticlePage = ({ loggedInUser }) => {
   const { article_id } = useParams();
   const query = `/${article_id}`;
-  const [article, setArticle] = useState([]);
+  const [article, setArticle] = useState([{}]);
   const [showComments, setShowComments] = useState(false);
-  const [addVotes, setAddVotes] = useState(false);
+  const [newComment, setNewComment] = useState(null);
+  const [newCommentIsSubmitting, setNewCommentIsSubmitting] = useState(false);
+  const [updateCommentCount, setUpdateCommentCount] = useState(null);
+  const [likeState, setLikeState] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    getArticle(query).then((response) => {
-      setArticle(response);
-    });
+    setIsLoading(true);
+    getArticle(query)
+      .then((response) => {
+        setArticle(response);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, [query]);
 
   const handleShowComments = () => {
     setShowComments((prevState) => !prevState);
   };
 
-  const handleHideComments = () => {
-    setShowComments(false);
+  const handleLike = (value) => {
+    patchLikes(article_id, value)
+      .then((response) => {
+        setArticle(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    if (likeState === 0) {
+      setLikeState(value);
+    } else if (value !== 0) {
+      setLikeState(0);
+    } else {
+      setLikeState(value);
+    }
   };
-  const handleAddVotes = () => {
-    setAddVotes(true);
-  };
+
+  if (isLoading) return <h3>Article is loading...</h3>;
 
   return (
     <>
@@ -37,15 +59,43 @@ const ArticlePage = () => {
         <h4>Created at: {article.created_at}</h4>
         <img src={article.article_img_url} alt={`${article.title}`} />
         <p>{article.body}</p>
-        <button onClick={handleAddVotes}>👍{article.votes}</button>
-        <button onClick={handleShowComments}>💬{article.comment_count}</button>
       </div>
       <div>
+        <button onClick={() => handleLike(1)} disabled={likeState === 1}>
+          👍
+        </button>
+        <button onClick={() => handleLike(-1)} disabled={likeState === -1}>
+          👎
+        </button>
+        <span>💙{article.votes}</span>
+      </div>
+      <div>
+        <button onClick={handleShowComments}>
+          💬{updateCommentCount ? updateCommentCount : article.comment_count}
+        </button>
         {showComments ? (
           <>
-            <CommentForm />
-            <CommentsExtension article_id={article.article_id} />
-            <button onClick={handleHideComments}>Hide comments</button>
+            <CommentForm
+              article_id={article.article_id}
+              loggedInUser={loggedInUser}
+              setNewComment={setNewComment}
+              setNewCommentIsSubmitting={setNewCommentIsSubmitting}
+              currentCommentCount={
+                updateCommentCount ? updateCommentCount : article.comment_count
+              }
+              setUpdateCommentCount={setUpdateCommentCount}
+            />
+            <CommentsExtension
+              article_id={article.article_id}
+              newComment={newComment}
+              newCommentIsSubmitting={newCommentIsSubmitting}
+              loggedInUser={loggedInUser}
+              currentCommentCount={
+                updateCommentCount ? updateCommentCount : article.comment_count
+              }
+              setUpdateCommentCount={setUpdateCommentCount}
+            />
+            <button onClick={handleShowComments}>Hide comments</button>
           </>
         ) : null}
       </div>

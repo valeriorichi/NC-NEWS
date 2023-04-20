@@ -7,31 +7,70 @@ const HomePage = () => {
   const [mostVotedArticle, setMostVotedArticle] = useState([{}]);
   const [mostCommentedArticle, setMostCommentedArticle] = useState([{}]);
   const [articles, setArticles] = useState([]);
+  const [isLoadingMostVoted, setIsLoadingMostVoted] = useState(false);
+  const [isLoadingMostCommented, setIsLoadingMostCommented] = useState(false);
+  const [isLoadingMostRecent, setIsLoadingMostRecent] = useState(false);
 
   useEffect(() => {
-    getArticles("?sort_by=votes&order=asc").then((response) => {
-      setMostVotedArticle(response);
-    });
-    getArticles().then((response) => {
-      const theMostCommentedArticle = findMostCommentedArticle(response);
-      setMostCommentedArticle(theMostCommentedArticle);
-    });
-    getArticles().then((response) => {
-      setArticles(response);
-    });
+    setIsLoadingMostVoted(true);
+    setIsLoadingMostCommented(true);
+    setIsLoadingMostRecent(true);
+    getArticles("?sort_by=votes&order=asc")
+      .then((response) => {
+        setMostVotedArticle(response);
+        setIsLoadingMostVoted(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    getArticles()
+      .then((response) => {
+        const theMostCommentedArticle = findMostCommentedArticle(response);
+        setMostCommentedArticle(theMostCommentedArticle);
+        setIsLoadingMostCommented(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    getArticles()
+      .then((response) => {
+        setArticles(response);
+        setIsLoadingMostRecent(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   return (
     <>
       <h1>Welcome to the NC-News</h1>
-      <h2>The most commented article:</h2>
-      <ArticleCard article={mostCommentedArticle} />
-      <h2>The most voted article:</h2>
-      <ArticleCard article={mostVotedArticle[0]} />
-      <h2>The most recent articles:</h2>
-      {articles.slice(0, 10).map((article) => (
-        <ArticleCard key={article.article_id} article={article} />
-      ))}
+      {isLoadingMostCommented ? (
+        <h3>The most commented article is loading....</h3>
+      ) : (
+        <div>
+          <h2>The most commented article:</h2>
+          <ArticleCard article={mostCommentedArticle} />
+        </div>
+      )}
+      {isLoadingMostVoted ? (
+        <h3>The most voted article is loading....</h3>
+      ) : (
+        <div>
+          <h2>The most voted article:</h2>
+          <ArticleCard article={mostVotedArticle[0]} />
+        </div>
+      )}
+      {isLoadingMostRecent ? (
+        <h3>The most recent articles are loading....</h3>
+      ) : (
+        <div>
+          <h2>The most recent articles:</h2>
+          {articles.slice(0, 10).map((article) => (
+            <ArticleCard key={article.article_id} article={article} />
+          ))}
+        </div>
+      )}
     </>
   );
 };

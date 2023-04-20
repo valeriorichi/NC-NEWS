@@ -9,15 +9,23 @@ const Header = ({ loggedInUser, setLoggedInUser }) => {
   const [topics, setTopics] = useState([]);
 
   useEffect(() => {
-    getUsers().then((response) => {
-      setAvailableUsers(response);
-    });
+    getUsers()
+      .then((response) => {
+        setAvailableUsers(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   useEffect(() => {
-    getTopics().then((response) => {
-      setTopics(response);
-    });
+    getTopics()
+      .then((response) => {
+        setTopics(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   return (

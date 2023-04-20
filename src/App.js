@@ -12,6 +12,7 @@ import Footer from './components/Footer';
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState('');
+
   return (
     <div className="App">
       <Header setLoggedInUser={setLoggedInUser} loggedInUser={loggedInUser} />
@@ -21,7 +22,7 @@ function App() {
         <Route path="/users" element={<UsersPage />} />
         <Route path="/articles" element={<ArticlesTray />} />
         <Route path="/articles/:topic" element={<ArticlesTray />} />
-        <Route path="/article/:article_id" element={<ArticlePage />} />
+        <Route path="/article/:article_id" element={<ArticlePage loggedInUser={loggedInUser} />} />
       </Routes>
       <Footer />
     </div>
