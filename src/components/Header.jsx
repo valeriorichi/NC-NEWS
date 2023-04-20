@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { date, dayOfWeek } from "../utils/getDate";
 import { getUsers, getTopics } from "../api";
-import ArticlesTray from "./ArticlesTray";
 
 const Header = ({ loggedInUser, setLoggedInUser }) => {
   const [availableUsers, setAvailableUsers] = useState([]);
