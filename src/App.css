@@ -2,6 +2,144 @@
   text-align: center;
 }
 
+.Header {
+  display: flex;
+  justify-content: space-between; /* changed from center */
+  align-items: center;
+  background-color: #fff;
+  height: 80px;
+  padding: 0 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.Header__centre {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 33%;
+}
+
+.Header__left {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 33%;
+}
+
+.Header__right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 33%; /* changed from 66% */
+}
+
+.Header h1 {
+  font-family: "Old Standard TT", serif;
+  font-size: 2rem;
+  font-weight: bold;
+  color: red;
+  margin: 0;
+}
+
+.Date {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: auto;
+}
+
+.Date h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.Date h4 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #999;
+}
+
+.nav {
+  display: flex; /* added */
+  justify-content: center; /* added */
+  align-items: center; /* added */
+}
+
+.user-selector {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  color: #555;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+select {
+  margin-left: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 5px;
+  font-size: 0.8rem;
+}
+
+nav button {
+  background-color: transparent;
+  border: none;
+  color: #333;
+  font-size: 0.8rem;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+nav button:hover {
+  color: #555;
+}
+
+@media only screen and (max-width: 768px) {
+  .Header {
+    flex-direction: column;
+    height: auto;
+    padding: 20px;
+  }
+
+  .Header h1 {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .Date {
+    margin: 0;
+    text-align: center;
+  }
+
+  .nav {
+    margin: 20px 0;
+  }
+
+  .user-selector {
+    margin-right: 0;
+    margin-bottom: 10px; /* added */
+  }
+
+  nav button {
+    margin: 0 5px;
+  }
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap; /* added */
+  margin-top: 20px; /* added */
+}
+
+nav button {
+  margin: 5px; /* changed from 10px */
+}
+
+/*
 .App-logo {
   height: 40vmin;
   pointer-events: none;

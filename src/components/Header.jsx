@@ -29,21 +29,19 @@ const Header = ({ loggedInUser, setLoggedInUser }) => {
   }, []);
 
   return (
-    <>
-      <div className="Header">
+    <div className="Header">
+      <div className="Header__left">
+        <div className="Date">
+          <h3>{dayOfWeek}</h3>
+          <h4>{date}</h4>
+        </div>
+      </div>
+
+      <div className="Header__center">
         <h1>NC-NEWS</h1>
       </div>
 
-      <div className="Date">
-        <h3>{dayOfWeek}</h3>
-        <h4>{date}</h4>
-      </div>
-
-      <nav className="nav">
-        <Link to="/users">
-          <button>Users</button>
-        </Link>
-
+      <div className="Header__right">
         <label className="user-selector" htmlFor="logged-in-user">
           User:
           <select
@@ -65,14 +63,20 @@ const Header = ({ loggedInUser, setLoggedInUser }) => {
             })}
           </select>
         </label>
-
-        <Link to="/articles">
-          <button>All</button>
-        </Link>
+      </div>
+      <div className="Home">
         <Link to="/">
           <button>Home</button>
         </Link>
-        <section>
+      </div>
+
+      <nav className="nav">
+        <div className="all-button">
+          <Link to="/articles">
+            <button>All</button>
+          </Link>
+        </div>
+        <div className="topic-buttons">
           {topics.map((topic, index) => {
             return (
               <Link key={index} to={`/articles/${topic.slug}`}>
@@ -80,9 +84,9 @@ const Header = ({ loggedInUser, setLoggedInUser }) => {
               </Link>
             );
           })}
-        </section>
+        </div>
       </nav>
-    </>
+    </div>
   );
 };
 
