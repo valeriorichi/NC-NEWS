@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { date, dayOfWeek } from "../utils/getDate";
 import { getUsers, getTopics } from "../api";
-import ArticlesTray from "./ArticlesTray";
+import ErrorPage from "./ErrorPage";
 
 const Header = ({ loggedInUser, setLoggedInUser }) => {
   const [availableUsers, setAvailableUsers] = useState([]);
   const [topics, setTopics] = useState([]);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     getUsers()
@@ -14,7 +15,7 @@ const Header = ({ loggedInUser, setLoggedInUser }) => {
         setAvailableUsers(response);
       })
       .catch((err) => {
-        console.log(err);
+        setError(err.response.data);
       });
   }, []);
 
@@ -24,9 +25,11 @@ const Header = ({ loggedInUser, setLoggedInUser }) => {
         setTopics(response);
       })
       .catch((err) => {
-        console.log(err);
+        setError(err.response.data);
       });
   }, []);
+
+  if (error) return <ErrorPage message={error} />;
 
   return (
     <div className="Header">

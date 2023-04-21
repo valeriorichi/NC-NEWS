@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { getComments } from "../api";
 import { getCommentsWithAvatars, deleteComment } from "../api";
-import CommentForm from "./CommentForm";
+import ErrorPage from "./ErrorPage";
 
 const CommentsExtension = ({
   article_id,
@@ -13,6 +12,8 @@ const CommentsExtension = ({
 }) => {
   const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+
   useEffect(() => {
     setIsLoading(true);
     getCommentsWithAvatars(article_id)
@@ -21,7 +22,7 @@ const CommentsExtension = ({
         setIsLoading(false);
       })
       .catch((err) => {
-        console.log(err);
+        setError(err.response.data);
       });
   }, [article_id, newComment, newCommentIsSubmitting]);
 
@@ -36,11 +37,14 @@ const CommentsExtension = ({
         setIsLoading(false);
       })
       .catch((err) => {
-        console.log(err);
+        setError(err.response.data);
         setUpdateCommentCount(currentCommentCount + 1);
       });
   };
+
   if (isLoading) return <h4>Comments are loading....</h4>;
+  if (error) return <ErrorPage message={error} />;
+
   return (
     <>
       {" "}

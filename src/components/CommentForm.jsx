@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { postComments } from "../api";
+import ErrorPage from "./ErrorPage";
 
 const CommentForm = ({
   article_id,
@@ -12,9 +13,12 @@ const CommentForm = ({
   const [commentBody, setCommentBody] = useState("");
   const [error, setError] = useState(false);
   const [disableButton, setDisableButton] = useState(false);
+  const [errors, setErrors] = useState("");
+  const [noEmptyCommentBody, setNoEmptyCommentBody] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (!commentBody) setNoEmptyCommentBody(true);
     const newComment = {
       body: commentBody,
       username: loggedInUser,
@@ -30,9 +34,9 @@ const CommentForm = ({
         setError(false);
       })
       .catch((err) => {
-        console.log(err);
-        setUpdateCommentCount(currentCommentCount - 1);
         setError(true);
+        setErrors(err.response.data);
+        setUpdateCommentCount(currentCommentCount - 1);
       });
   };
 
@@ -42,6 +46,9 @@ const CommentForm = ({
         Log-in to write new comment!
       </button>
     );
+
+  if (errors) return <ErrorPage message={errors} />;
+
   return (
     <form>
       <div className="comment-form">
@@ -54,8 +61,17 @@ const CommentForm = ({
               id="comment_body"
             ></input>
           </label>
+          {noEmptyCommentBody ? (
+            <div>
+              <h3>
+                You cannot post an empty comment. Please write some nice
+                comment!!!
+              </h3>
+              <button onClick={() => setNoEmptyCommentBody(true)}>ok!</button>
+            </div>
+          ) : null}
           {error ? (
-            <p>Your comment did not go through! Please try again later</p>
+            <h3>Your comment did not go through! Please try again later</h3>
           ) : null}
           <input
             type="submit"

@@ -2,6 +2,31 @@
   text-align: center;
 }
 
+.error-msg {
+  font-family: "Old Standard TT", serif;
+  font-size: 2rem;
+  font-weight: bold;
+  color: red;
+  margin: 0;
+  animation: blink 5s linear infinite;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.error-img {
+  width: 200px;
+}
+
 .Header {
   display: flex;
   justify-content: space-between; /* changed from center */

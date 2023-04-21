@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import ArticleCard from "./ArticleCard";
+import ErrorPage from "./ErrorPage";
 import { getArticles } from "../api";
 import { findMostCommentedArticle } from "../utils/findMostCommentedArticle";
 
@@ -10,6 +11,7 @@ const HomePage = () => {
   const [isLoadingMostVoted, setIsLoadingMostVoted] = useState(false);
   const [isLoadingMostCommented, setIsLoadingMostCommented] = useState(false);
   const [isLoadingMostRecent, setIsLoadingMostRecent] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     setIsLoadingMostVoted(true);
@@ -22,6 +24,8 @@ const HomePage = () => {
       })
       .catch((err) => {
         console.log(err);
+        setError("Error loading most voted article");
+        setIsLoadingMostVoted(false);
       });
     getArticles()
       .then((response) => {
@@ -31,6 +35,8 @@ const HomePage = () => {
       })
       .catch((err) => {
         console.log(err);
+        setError("Error loading most commented article");
+        setIsLoadingMostCommented(false);
       });
     getArticles()
       .then((response) => {
@@ -39,12 +45,17 @@ const HomePage = () => {
       })
       .catch((err) => {
         console.log(err);
+        setError("Error loading most recent articles");
+        setIsLoadingMostRecent(false);
       });
   }, []);
+
+  if (error) return <ErrorPage message={error} />;
 
   return (
     <>
       <h1>Welcome to the NC-News</h1>
+      {error && <h3>{error}</h3>}
       {isLoadingMostCommented ? (
         <h3>The most commented article is loading....</h3>
       ) : (

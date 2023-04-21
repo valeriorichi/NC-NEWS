@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ArticleCard from "./ArticleCard";
+import ErrorPage from "./ErrorPage";
 import { getArticles, getTopicDescription } from "../api";
 import { orderByCommentCount } from "../utils/orderByCommentCount";
 
@@ -14,6 +15,7 @@ const ArticlesTray = () => {
   const [sortBy, setSortBy] = useState("created_at");
   const [sortOrder, setSortOrder] = useState("desc");
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
   let queryToUse = ``;
   if (topic && !sortBy && !sortOrder) {
@@ -46,12 +48,18 @@ const ArticlesTray = () => {
         }
       })
       .catch((err) => {
-        console.log(err);
+        setError(err.response.data);
       });
     if (topic) {
-      getTopicDescription(topic).then((response) => {
-        setTopicDescription(response.description);
-      });
+      getTopicDescription(topic)
+        .then((response) => {
+          setTopicDescription(response.description);
+        })
+        .catch((err) => {
+          console.log(err);
+          setError("Ooops... Something went wrong! Try again later");
+          setIsLoading(false);
+        });
     }
   }, [queryToUse, sortBy, sortOrder, topic]);
 
@@ -66,6 +74,7 @@ const ArticlesTray = () => {
   };
 
   if (isLoading) return <h3>Articles are loading...</h3>;
+  if (error) return <ErrorPage message={error} />;
 
   return (
     <>
