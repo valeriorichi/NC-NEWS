@@ -1,0 +1,84 @@
+.article-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 75%;
+  padding: 10px;
+  margin: 0 auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 2px solid rgb(250, 4, 53);
+  box-shadow: 3px 5px 4px rgb(250, 4, 53);
+  cursor: pointer;
+}
+
+/* For screens smaller than 1250px, set width to 85% */
+@media (max-width: 1250px) {
+  .article-page {
+    width: 85%;
+  }
+}
+
+.article-page h4 {
+  font-family: "Old Standard TT", serif;
+  font-size: 1.5rem;
+  text-shadow: 5px 3px 5px rgba(16, 30, 90, 0.39);
+}
+
+.article-page img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 5px;
+  border: 1px solid rgba(226, 97, 23, 0.788);
+  box-shadow: 5px 7px 7px rgba(63, 8, 19, 0.568);
+}
+
+.article-card h5 {
+  font-family: "Old Standard TT", serif;
+  font-size: 2rem;
+  text-shadow: 5px 3px 5px rgba(16, 30, 90, 0.39);
+}
+.article-card h5,
+.article-card span {
+  display: inline;
+  align-items: center;
+}
+.article-card a:last-child {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: -35px;
+}
+
+.article-card a:last-child {
+  font-size: 1.7rem;
+  margin-right: 10px;
+  color: #444;
+  text-shadow: 5px 3px 5px rgba(16, 30, 90, 0.63);
+  width: auto;
+}
+
+.article-card a:last-child span:first-child {
+  margin-left: auto;
+  color: #1f78b4;
+}
+.article-card a:last-child {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: -35px;
+}
+
+.article-card a:last-child span {
+  font-size: 1.7rem;
+  margin-right: 10px;
+  color: #444;
+  text-shadow: 5px 3px 5px rgba(16, 30, 90, 0.63);
+}
+
+.article-card a:last-child span:first-child {
+  margin-left: 5px;
+  color: #1f78b4;
+}

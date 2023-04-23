@@ -1,0 +1,52 @@
+body {
+  font-family: "Old Standard TT", serif;
+}
+
+h1 {
+  font-family: "Old Standard TT", serif;
+  text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.25);
+  font-size: 2.5em;
+  text-align: center;
+  margin-top: 1em;
+}
+
+h2 {
+  font-family: "Old Standard TT", serif;
+  text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.25);
+  font-size: 1.5em;
+  margin-top: 1.5em;
+}
+
+h3 {
+  font-family: "Old Standard TT", serif;
+  font-size: 1.2em;
+  color: red;
+  margin-top: 1em;
+}
+
+div {
+  margin-top: 1em;
+}
+
+.article-card {
+  border: 1px solid black;
+  padding: 1em;
+  margin-bottom: 1em;
+}
+
+.article-card h4 {
+  font-size: 1.2em;
+  margin: 0;
+}
+
+.article-card p {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+}
+
+.loading {
+  font-family: "Old Standard TT", serif;
+  text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.25);
+  font-style: italic;
+  margin-top: 1em;
+}

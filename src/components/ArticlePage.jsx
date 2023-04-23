@@ -56,7 +56,7 @@ const ArticlePage = ({ loggedInUser }) => {
   if (error) return <ErrorPage message={error} />;
 
   return (
-    <>
+    <div className="article-page">
       <div>
         <h1>{article.title}</h1>
         <h4>Topic: {article.topic}</h4>
@@ -104,7 +104,7 @@ const ArticlePage = ({ loggedInUser }) => {
           </>
         ) : null}
       </div>
-    </>
+    </div>
   );
 };
 

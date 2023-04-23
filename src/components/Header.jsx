@@ -32,63 +32,72 @@ const Header = ({ loggedInUser, setLoggedInUser }) => {
   if (error) return <ErrorPage message={error} />;
 
   return (
-    <div className="Header">
-      <div className="Header__left">
-        <div className="Date">
+    <div className="header">
+      <div className="header-main">
+        <div className="date">
           <h3>{dayOfWeek}</h3>
           <h4>{date}</h4>
         </div>
-      </div>
 
-      <div className="Header__center">
-        <h1>NC-NEWS</h1>
-      </div>
+        <div className="header-title">
+          <h1>NC-NEWS</h1>
+        </div>
 
-      <div className="Header__right">
-        <label className="user-selector" htmlFor="logged-in-user">
-          User:
-          <select
-            value={loggedInUser}
-            onChange={(event) => {
-              setLoggedInUser(() => {
-                return event.target.value;
-              });
-            }}
-            id="logged-in-user"
-          >
-            <option key={-1} value=""></option>
-            {availableUsers.map((user, index) => {
-              return (
-                <option key={index} value={user.username}>
-                  {user.username}
+        <div className="header-right">
+          <nav className="home">
+            <Link to="/">
+              <button>Home</button>
+            </Link>
+          </nav>
+          <nav className="users">
+            <Link to="/users">
+              <button>Users</button>
+            </Link>
+
+            <label className="user-selector" htmlFor="logged-in-user">
+              User:
+              <select
+                value={loggedInUser}
+                onChange={(event) => {
+                  setLoggedInUser(() => {
+                    return event.target.value;
+                  });
+                }}
+                id="logged-in-user"
+              >
+                <option key={-1} value="">
+                  Log-in here
                 </option>
+                {availableUsers.map((user, index) => {
+                  return (
+                    <option key={index} value={user.username}>
+                      {user.username}
+                    </option>
+                  );
+                })}
+              </select>
+            </label>
+          </nav>
+        </div>
+      </div>
+      <div className="subheader">
+        <nav className="header-nav">
+          <div className="all-button">
+            <Link to="/articles">
+              <button>All articles</button>
+            </Link>
+          </div>
+          <div className="topic-buttons">
+            {topics.map((topic, index) => {
+              return (
+                <Link key={index} to={`/articles/${topic.slug}`}>
+                  <button>{topic.slug}</button>
+                </Link>
               );
             })}
-          </select>
-        </label>
+          </div>
+        </nav>
       </div>
-      <div className="Home">
-        <Link to="/">
-          <button>Home</button>
-        </Link>
-      </div>
-
-      <nav className="nav">
-        <div className="all-button">
-          <Link to="/articles">
-            <button>All</button>
-          </Link>
-        </div>
-        <div className="topic-buttons">
-          {topics.map((topic, index) => {
-            return (
-              <Link key={index} to={`/articles/${topic.slug}`}>
-                <button>{topic.slug}</button>
-              </Link>
-            );
-          })}
-        </div>
-      </nav>
     </div>
   );
 };

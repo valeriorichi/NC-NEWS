@@ -23,6 +23,7 @@ export const getArticle = (query = '') => {
 export const getUsers = () => {
     return ncNewsApi.get(`/users`)
         .then((response) => {
+            console.log(response);
             return response.data.users;
         });
 };

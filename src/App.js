@@ -20,7 +20,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/home" element={<HomePage />} />
-        <Route path="/users" element={<UsersPage />} />
+        <Route path="/users" element={<UsersPage loggedInUser={loggedInUser} />} />
         <Route path="/articles" element={<ArticlesTray />} />
         <Route path="/articles/:topic" element={<ArticlesTray />} />
         <Route path="/article/:article_id" element={<ArticlePage loggedInUser={loggedInUser} />} />

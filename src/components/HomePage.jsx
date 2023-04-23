@@ -54,10 +54,10 @@ const HomePage = () => {
 
   return (
     <>
-      <h1>Welcome to the NC-News</h1>
+      <h1 className="main-header">Welcome to the NC-News</h1>
       {error && <h3>{error}</h3>}
       {isLoadingMostCommented ? (
-        <h3>The most commented article is loading....</h3>
+        <h3 className="loading">The most commented article is loading....</h3>
       ) : (
         <div>
           <h2>The most commented article:</h2>
@@ -65,7 +65,7 @@ const HomePage = () => {
         </div>
       )}
       {isLoadingMostVoted ? (
-        <h3>The most voted article is loading....</h3>
+        <h3 className="loading">The most voted article is loading....</h3>
       ) : (
         <div>
           <h2>The most voted article:</h2>
@@ -73,13 +73,15 @@ const HomePage = () => {
         </div>
       )}
       {isLoadingMostRecent ? (
-        <h3>The most recent articles are loading....</h3>
+        <h3 className="loading">The most recent articles are loading....</h3>
       ) : (
         <div>
           <h2>The most recent articles:</h2>
-          {articles.slice(0, 10).map((article) => (
-            <ArticleCard key={article.article_id} article={article} />
-          ))}
+          <table className="articles-table">
+            {articles.slice(0, 10).map((article) => (
+              <ArticleCard key={article.article_id} article={article} />
+            ))}
+          </table>
         </div>
       )}
     </>
