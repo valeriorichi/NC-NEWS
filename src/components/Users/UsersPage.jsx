@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import UserTray from "./UserTray";
+import UserCard from "./UserCard";
 
-const UsersPage = () => {
+const UsersPage = ({ loggedInUser }) => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -19,8 +19,10 @@ const UsersPage = () => {
 
   return (
     <div>
-      <h2 className="">Users:</h2>
-      <UserTray users={users} setUsers={setUsers} />
+      <h2 className="users">Users:</h2>
+      {users.map((user) => (
+        <UserCard key={user.user_id} user={user} />
+      ))}
     </div>
   );
 };

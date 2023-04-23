@@ -1,6 +1,7 @@
 import { getArticle, patchLikes } from "../api";
 import CommentsExtension from "./CommentsExtension";
 import CommentForm from "./CommentForm";
+import ErrorPage from "./ErrorPage";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
@@ -14,6 +15,7 @@ const ArticlePage = ({ loggedInUser }) => {
   const [updateCommentCount, setUpdateCommentCount] = useState(null);
   const [likeState, setLikeState] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     setIsLoading(true);
@@ -23,7 +25,8 @@ const ArticlePage = ({ loggedInUser }) => {
         setIsLoading(false);
       })
       .catch((err) => {
-        console.log(err);
+        setError(err.response.data);
+        setIsLoading(false);
       });
   }, [query]);
 
@@ -37,7 +40,8 @@ const ArticlePage = ({ loggedInUser }) => {
         setArticle(response);
       })
       .catch((err) => {
-        console.log(err);
+        setError(err.response.data);
+        setIsLoading(false);
       });
     if (likeState === 0) {
       setLikeState(value);
@@ -49,9 +53,10 @@ const ArticlePage = ({ loggedInUser }) => {
   };
 
   if (isLoading) return <h3>Article is loading...</h3>;
+  if (error) return <ErrorPage message={error} />;
 
   return (
-    <>
+    <div className="article-page">
       <div>
         <h1>{article.title}</h1>
         <h4>Topic: {article.topic}</h4>
@@ -99,7 +104,7 @@ const ArticlePage = ({ loggedInUser }) => {
           </>
         ) : null}
       </div>
-    </>
+    </div>
   );
 };
 
