@@ -8,7 +8,9 @@ NC-NEWS is a front-end project developed as part of my studies at the Northcoder
 
 The project is based on the backend server that was also created as part of the Northcoders bootcamp. You can find the backend server repository here: [GitHub Repository](https://github.com/valeriorichi/NC-NEWS-SERVER-API) or access the hosted backend version here: [Hosted Backend](https://val-northcoders.onrender.com/api)
 
-![Screenshot 1](nc-news-cover.png)
+<p align="center">
+  <img src="nc-news-cover.png" alt="Screenshot" width="150px">
+</p>
 
 ## Installation and Setup Instructions
 
