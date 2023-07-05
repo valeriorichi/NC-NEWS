@@ -1,70 +1,64 @@
-# Getting Started with Create React App
+# NC-NEWS
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to NC-NEWS, a news aggregation and discussion platform.
 
-## Available Scripts
+You can access the hosted version of this project at [nc-news-vy.netlify.app](https://nc-news-vy.netlify.app/). Please note that it may take some time for all the articles to upload.
 
-In the project directory, you can run:
+NC-NEWS is a front-end project developed as part of my studies at the Northcoders bootcamp. The project showcases my skills in frontend development using the React framework. NC-NEWS is built using React Native.
 
-### `npm start`
+The project is based on the backend server that was also created as part of the Northcoders bootcamp. You can find the backend server repository here: [GitHub Repository](https://github.com/valeriorichi/NC-NEWS-SERVER-API) or access the hosted backend version here: [Hosted Backend](https://val-northcoders.onrender.com/api)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+![Screenshot 1](nc-news-cover.png)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Installation and Setup Instructions
 
-### `npm test`
+To create a local copy of this repository, you will need to fork the repo on GitHub, copy the HTTPS URL, and then use the following command in your terminal:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+`git clone https://github.com/valeriorichi/NC-NEWS.git`
 
-### `npm run build`
+Once in the repo, navigate to the project directory and run the following command to install all the necessary dependencies:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+`npm install`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+To start the server, use the following command:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+`npm start`
 
-### `npm run eject`
+Make sure you have Node.js (version 18.15.0 LTS or higher) and npm installed globally on your machine.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Using the Site
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+On loading of the page, you will receive a list of usernames which can then be chosen to login with. After logging you can view a list of topics which lead to a list of articles for the given topic. When viewing an article's page, you may want to read its comments or add one of your own! This is easily done in the add comment section. Voting is available on both articles and comments.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Built with
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- [Create React App](https://create-react-app.dev/) - To bootstrap the app and streamline the creation process.
+- [Axios](https://axios-http.com/) - Sends requests to the backend API.
+- [React Router](https://reactrouter.com/en/main) - Routing system used throughout the site.
 
-## Learn More
+## Agile Development
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Agile inspired development practices continue to fuel the development of this project. You can view the online Kanban board for this project [here](https://trello.com/b/rzUlZ84J/valeriy-yuriy-fe-project). Optionally, you can also view the current work in progress by checking the different columns on the Kanban board. Please note that the project may not always have an active sprint, as the work is organized using Kanban principles, where tasks are continuously pulled from the backlog as capacity allows.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## UI Design
 
-### Code Splitting
+A popular news aggregation service was used as the basis for this educational project's design, with specific design choices gravitating away from this base design where appropriate. Special attention was paid to ensure the design was as responsive as possible across all devices, and that good accessibility practices were employed throughout.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Planning and Design
 
-### Analyzing the Bundle Size
+To plan the NC-NEWS app, I started by creating wireframes to visualize the app's structure and functionality. I used Excalidraw as it is popular free wireframing tool. The wireframes provided a blueprint for the app's design without focusing on visual details.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Once the wireframes were ready, I proceeded to plan the app's state management. I aimed to keep the state minimal and ensure a single source of truth. I identified the information that would vary over time and needed to be stored in state.
 
-### Making a Progressive Web App
+For each state variable, I determined which components required access to that state for reading or updating. Then, I strategically placed the state in a component high enough in the component tree to provide access to all the necessary components. This ensured that the state and functions to update it could be passed down as props.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+By following this approach, I established a well-structured component tree with the necessary state management. This allowed for efficient data flow and ensured that each component had access to the relevant state information.
 
-### Advanced Configuration
+<img src="nc_news_screens_plan.png" alt="Screenshot 2">
+<img src="nc_news_scheme.png" alt="Screenshot 1">
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Feedback
 
-### Deployment
+The codebase is intended to be as DRY, yet feature rich as possible though this is very much still a work in progress and I would welcome any feedback.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+View a hosted version of this project at: [nc-news-vy.netlify.app](https://nc-news-vy.netlify.app/). Please give it time to upload all articles.
